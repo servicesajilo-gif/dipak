@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jaykali Transport - Hosting Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a3a6d;
+            --secondary: #f39c12;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f7fa;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background: #f90303;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo-text span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            font-weight: 500;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover:after,
+        nav ul li a.active:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(26, 58, 109, 0.8), rgba(26, 58, 109, 0.8)), url('https://images.unsplash.com/photo-1519500528352-2d1460418d41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .service-icon {
+            font-size: 50px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        /* Tracking */
+        .tracking {
+            background: linear-gradient(to right, var(--primary), #2c5282);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .tracking h2 {
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .tracking p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .tracking-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .tracking-input {
+            flex: 1;
+            padding: 18px 25px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+        
+        .tracking-btn {
+            padding: 18px 35px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .tracking-btn:hover {
+            background: #e67e22;
+        }
+        
+        .tracking-result {
+            max-width: 800px;
+            margin: 40px auto 0;
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            color: var(--dark);
+            display: none;
+        }
+        
+        .tracking-result h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .tracking-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .tracking-item {
+            margin-bottom: 15px;
+        }
+        
+        .tracking-label {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .status.in-transit {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status.delivered {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status.pending {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* Branches */
+        .branches-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .branch-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .branch-map {
+            height: 200px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+        }
+        
+        .branch-info {
+            padding: 25px;
+        }
+        
+        .branch-info h3 {
+            margin-bottom: 15px;
+        }
+        
+        .branch-contact {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        /* Contact */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .contact-info {
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-info h2 {
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            margin-bottom: 25px;
+        }
+        
+        .contact-icon {
+            font-size: 24px;
+            color: var(--secondary);
+            margin-right: 15px;
+            min-width: 30px;
+        }
+        
+        .contact-form {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Hosting Guide */
+        .guide-container {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin: 40px auto;
+            max-width: 900px;
+        }
+        
+        .step {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .troubleshooting {
+            background: #fff8e6;
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .troubleshooting h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .error-box {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 70px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo span {
+            color: var(--secondary);
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        .footer-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--secondary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                box-shadow: var(--shadow);
+                padding: 20px 0;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0;
+                padding: 12px 30px;
+            }
+            
+            nav ul li a {
+                display: block;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .tracking-form {
+                flex-direction: column;
+                border-radius: 8px;
+            }
+            
+            .tracking-input,
+            .tracking-btn {
+                width: 100%;
+                border-radius: 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-text">Jaykali <span>Transport</span></div>
+            </div>
+            
+            <nav>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#tracking">Track Goods</a></li>
+                    <li><a href="#branches">Branches</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#hosting-guide">Hosting Guide</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Reliable Transport Solutions Across Nepal</h1>
+            <p>Jaykali Transport provides efficient, safe, and timely logistics services nationwide. With over 15 years of experience, we deliver your goods with care and precision.</p>
+            <div class="hero-btns">
+                <a href="#tracking" class="btn">Track Your Goods</a>
+                <a href="#contact" class="btn btn-outline">Get a Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>Comprehensive logistics solutions tailored to your needs</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Goods Transportation</h3>
+                    <p>Safe and efficient transport of goods across Nepal with real-time tracking and dedicated support.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <h3>Cargo Services</h3>
+                    <p>Professional cargo handling for businesses of all sizes with customized logistics solutions.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <h3>Warehousing</h3>
+                    <p>Secure storage facilities with climate control and 24/7 security for your valuable goods.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Express Delivery</h3>
+                    <p>Priority delivery service for time-sensitive shipments with guaranteed timelines.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <h3>International Shipping</h3>
+                    <p>Seamless global logistics solutions with customs clearance and documentation support.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-people-carry"></i>
+                    </div>
+                    <h3>Packing & Moving</h3>
+                    <p>Professional packing, loading, and relocation services for homes and offices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tracking Section -->
+    <section class="tracking" id="tracking">
+        <div class="container">
+            <h2>Track Your Goods</h2>
+            <p>Enter your tracking number to get real-time updates on your shipment</p>
+            
+            <form class="tracking-form" id="trackingForm">
+                <input type="text" class="tracking-input" id="trackingNumber" placeholder="Enter Tracking ID (e.g. NGT82/83-0016)" required>
+                <button type="submit" class="tracking-btn">Track Now</button>
+            </form>
+            
+            <div class="tracking-result" id="trackingResult">
+                <h3>Shipment Details</h3>
+                <div class="tracking-details" id="trackingDetails">
+                    <!-- Tracking details will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Branches Section -->
+    <section class="section" id="branches">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Branches</h2>
+                <p>Find our offices and service centers across Nepal</p>
+            </div>
+            
+            <div class="branches-container">
+                <div class="branch-card">
+                    <div class="branch-map">
+                        <i class="fas fa-map-marker-alt" style="font-size: 40px;"></i>
+                        <span>Kathmandu</span>
+                    </div>
+                    <div class="branch-info">
+                        <h3>Kathmandu Main Office</h3>
+                        <p>Our headquarters and primary distribution center serving the entire kathmandu region.</p>
+                        <div class="branch-contact">
+                            <p><i class="fas fa-phone"></i> +977 9801134887</p>
+                            <p><i class="fas fa-envelope"></i> kathmandu@jaykalitransport.com</p>
+                            <p><i class="fas fa-clock"></i> Sun-Fri: 8AM-8PM, Sat: 9AM-5PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="branch-card">
+                    <div class="branch-map">
+                        <i class="fas fa-map-marker-alt" style="font-size: 40px;"></i>
+                        <span>Narayanghat</span>
+                    </div>
+                    <div class="branch-info">
+                        <h3>Narayanghat Branch</h3>
+                        <p>Central hub for international shipments and business logistics solutions.</p>
+                        <div class="branch-contact">
+                            <p><i class="fas fa-phone"></i> +977 9705410184</p>
+                            <p><i class="fas fa-envelope"></i> narayanghat@jaykalitransport.com</p>
+                            <p><i class="fas fa-clock"></i> Sun-Fri: 8AM-7PM, Sat: 9AM-4PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="branch-card">
+                    <div class="branch-map">
+                        <i class="fas fa-map-marker-alt" style="font-size: 40px;"></i>
+                        <span>Itahari</span>
+                    </div>
+                    <div class="branch-info">
+                        <h3>Itahari Branch</h3>
+                        <p>Serving the estern region with dedicated routes and specialized services.</p>
+                        <div class="branch-contact">
+                            <p><i class="fas fa-phone"></i> +977 970541181</p>
+                            <p><i class="fas fa-envelope"></i> itahari@jaykalitransport.com</p>
+                            <p><i class="fas fa-clock"></i> Sun-Fri: 8AM-7PM, Sat: 9AM-4PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="branch-card">
+                    <div class="branch-map">
+                        <i class="fas fa-map-marker-alt" style="font-size: 40px;"></i>
+                        <span>Damak</span>
+                    </div>
+                    <div class="branch-info">
+                        <h3>Damak Branch</h3>
+                        <p>Serving the estern region with dedicated routes and specialized services.</p>
+                        <div class="branch-contact">
+                            <p><i class="fas fa-phone"></i> +977 970541182</p>
+                            <p><i class="fas fa-envelope"></i> damak@jaykalitransport.com</p>
+                            <p><i class="fas fa-clock"></i> Sun-Fri: 8AM-7PM, Sat: 9AM-4PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="branch-card">
+                    <div class="branch-map">
+                        <i class="fas fa-map-marker-alt" style="font-size: 40px;"></i>
+                        <span>Birtamode</span>
+                    </div>
+                    <div class="branch-info">
+                        <h3>Birtamode Branch</h3>
+                        <p>Serving the estern region with dedicated routes and specialized services.</p>
+                        <div class="branch-contact">
+                            <p><i class="fas fa-phone"></i> +977 970541183</p>
+                            <p><i class="fas fa-envelope"></i> birtamode@jaykalitransport.com</p>
+                            <p><i class="fas fa-clock"></i> Sun-Fri: 8AM-7PM, Sat: 9AM-4PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="branch-card">
+                    <div class="branch-map">
+                        <i class="fas fa-map-marker-alt" style="font-size: 40px;"></i>
+                        <span>Birgunj</span>
+                    </div>
+                    <div class="branch-info">
+                        <h3>Birgunj Branch</h3>
+                        <p>Serving the estern region with dedicated routes and specialized services.</p>
+                        <div class="branch-contact">
+                            <p><i class="fas fa-phone"></i> +977 9842651476</p>
+                            <p><i class="fas fa-envelope"></i> birgunj@jaykalitransport.com</p>
+                            <p><i class="fas fa-clock"></i> Sun-Fri: 8AM-7PM, Sat: 9AM-4PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="branch-card">
+                    <div class="branch-map">
+                        <i class="fas fa-map-marker-alt" style="font-size: 40px;"></i>
+                        <span>Butwal</span>
+                    </div>
+                    <div class="branch-info">
+                        <h3>Butwal Branch</h3>
+                        <p>Serving the western region with dedicated routes and specialized services.</p>
+                        <div class="branch-contact">
+                            <p><i class="fas fa-phone"></i> +977 9801134887</p>
+                            <p><i class="fas fa-envelope"></i> Butwal@jaykalitransport.com</p>
+                            <p><i class="fas fa-clock"></i> Sun-Fri: 8AM-7PM, Sat: 9AM-4PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="branch-card">
+                    <div class="branch-map">
+                        <i class="fas fa-map-marker-alt" style="font-size: 40px;"></i>
+                        <span>Dhankuta</span>
+                    </div>
+                    <div class="branch-info">
+                        <h3>Dhankuta Branch</h3>
+                        <p>Serving the estern region with dedicated routes and specialized services.</p>
+                        <div class="branch-contact">
+                            <p><i class="fas fa-phone"></i> +977 970541181</p>
+                            <p><i class="fas fa-envelope"></i> Itahari@jaykalitransport.com</p>
+                            <p><i class="fas fa-clock"></i> Sun-Fri: 8AM-7PM, Sat: 9AM-4PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Get in touch for inquiries, quotes, or support</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Get In Touch</h2>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Head Office</h4>
+                            <p>Kathmandu, Nepal</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+977 9801134887</p>
+                            <p>+977 9801615694 (24/7 Support)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@jaykalitransport.com</p>
+                            <p>support@jaykalitransport.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Working Hours</h4>
+                            <p>Sunday-Friday: 8:00 AM - 8:00 PM</p>
+                            <p>Saturday: 9:00 AM - 5:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send us a message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">Jaykali <span>Transport</span></div>
+                    <p>Providing reliable and efficient transport services across Nepal since 2008. We prioritize safety, timeliness, and customer satisfaction in every shipment.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#tracking">Track Goods</a></li>
+                        <li><a href="#branches">Branches</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Goods Transportation</a></li>
+                        <li><a href="#">Cargo Services</a></li>
+                        <li><a href="#">Warehousing</a></li>
+                        <li><a href="#">Express Delivery</a></li>
+                        <li><a href="#">Packing & Moving</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Newsletter</h4>
+                    <p>Subscribe to our newsletter for the latest updates and offers.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Jaykali Transport. All Rights Reserved. | Designed by Deepak</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('nav ul').classList.remove('show');
+                }
+            });
+        });
+        
+        // Tracking form submission
+        document.getElementById('trackingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const trackingNumber = document.getElementById('trackingNumber').value.trim();
+            if (!trackingNumber) return;
+            
+            // In a real implementation, this would fetch from your Google Sheet
+            // For demo purposes, we're using mock data
+            trackShipment(trackingNumber);
+        });
+        
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will contact you soon.');
+            this.reset();
+        });
+        
+        // Track shipment function (mock implementation)
+        function trackShipment(trackingNumber) {
+            // This is a mock function that simulates data retrieval
+            // In a real implementation, you would connect to your Google Sheet via API
+            
+            // Show loading state
+            const resultDiv = document.getElementById('trackingResult');
+            const detailsDiv = document.getElementById('trackingDetails');
+            resultDiv.style.display = 'block';
+            detailsDiv.innerHTML = '<p class="tracking-item">Searching for shipment details...</p>';
+            
+            // Simulate API delay
+            setTimeout(() => {
+                // Mock data based on your Google Sheet structure
+                const mockData = [
+                    {
+                        'Tracking ID': 'NGT82/83-0016',
+                        'Date': '2023-08-15',
+                        'Sender Name': 'Sharma Traders',
+                        'Receiver Name': 'Acharya Enterprises',
+                        'Goods Nature': 'Electronics',
+                        'Qty.': '15 boxes',
+                        'Location': 'Kathmandu',
+                        'Status': 'In Transit'
+                    },
+                    {
+                        'Tracking ID': 'NGT82/83-0017',
+                        'Date': '2023-08-16',
+                        'Sender Name': 'Bhatta Suppliers',
+                        'Receiver Name': 'KC Retailers',
+                        'Goods Nature': 'Clothing',
+                        'Qty.': '25 cartons',
+                        'Location': 'Pokhara',
+                        'Status': 'Delivered'
+                    },
+                    {
+                        'Tracking ID': 'NGT82/83-0018',
+                        'Date': '2023-08-17',
+                        'Sender Name': 'Gurung Agro',
+                        'Receiver Name': 'Thapa Mart',
+                        'Goods Nature': 'Agricultural Products',
+                        'Qty.': '10 sacks',
+                        'Location': 'Narayanghat',
+                        'Status': 'Pending'
+                    }
+                ];
+                
+                // Find the matching tracking number
+                const shipment = mockData.find(item => 
+                    item['Tracking ID'].toLowerCase() === trackingNumber.toLowerCase()
+                );
+                
+                if (shipment) {
+                    // Display shipment details
+                    detailsDiv.innerHTML = `
+                        <div class="tracking-item">
+                            <div class="tracking-label">Tracking ID</div>
+                            <div>${shipment['Tracking ID']}</div>
+                        </div>
+                        <div class="tracking-item">
+                            <div class="tracking-label">Date</div>
+                            <div>${shipment['Date']}</div>
+                        </div>
+                        <div class="tracking-item">
+                            <div class="tracking-label">Sender</div>
+                            <div>${shipment['Sender Name']}</div>
+                        </div>
+                        <div class="tracking-item">
+                            <div class="tracking-label">Receiver</div>
+                            <div>${shipment['Receiver Name']}</div>
+                        </div>
+                        <div class="tracking-item">
+                            <div class="tracking-label">Goods Nature</div>
+                            <div>${shipment['Goods Nature']}</div>
+                        </div>
+                        <div class="tracking-item">
+                            <div class="tracking-label">Quantity</div>
+                            <div>${shipment['Qty.']}</div>
+                        </div>
+                        <div class="tracking-item">
+                            <div class="tracking-label">Current Location</div>
+                            <div>${shipment['Location']}</div>
+                        </div>
+                        <div class="tracking-item">
+                            <div class="tracking-label">Status</div>
+                            <div class="status ${shipment['Status'].toLowerCase().replace(' ', '-')}">${shipment['Status']}</div>
+                        </div>
+                    `;
+                } else {
+                    detailsDiv.innerHTML = '<p>No shipment found with tracking number: ' + trackingNumber + '</p>';
+                }
+            }, 1500);
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Highlight active menu item based on scroll position
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section');
+                const navLinks = document.querySelectorAll('nav ul li a');
+                
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
